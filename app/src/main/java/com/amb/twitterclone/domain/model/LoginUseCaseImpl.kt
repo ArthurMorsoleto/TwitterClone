@@ -11,8 +11,13 @@ class LoginUseCaseImpl @Inject constructor(
 
     override suspend fun invoke(email: String, password: String): Flow<Boolean> {
         return flow {
-            val result = authRepository.loginFireBase(email, password)
-            emit(result.user?.uid != null)
+            try {
+                val result = authRepository.loginFireBase(email, password)
+                emit(result.user?.uid != null)
+            } catch (e: Exception) {
+                // TODO map invalid credentials response
+                emit(false)
+            }
         }
     }
 }
