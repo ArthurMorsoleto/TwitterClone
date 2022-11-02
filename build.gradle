@@ -1,6 +1,6 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
-    ext.kotlin_version = "1.4.32"
+    ext.kotlin_version = "1.6.0"
     repositories {
         google()
         jcenter()
@@ -11,6 +11,10 @@ buildscript {
 
         classpath 'com.google.gms:google-services:4.3.10'
     }
+}
+
+plugins {
+    id 'com.google.dagger.hilt.android' version '2.44' apply false
 }
 
 allprojects {
