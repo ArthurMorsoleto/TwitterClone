@@ -13,4 +13,8 @@ class AuthRepositoryImpl @Inject constructor(
     override suspend fun loginFireBase(email: String, password: String): AuthResult {
         return firebaseAuth.signInWithEmailAndPassword(email, password).await()
     }
+
+    override fun logoutFirebase() {
+        return firebaseAuth.signOut()
+    }
 }
