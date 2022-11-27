@@ -32,11 +32,11 @@ class LoginViewModel @Inject constructor(
         }
         if (proceedLogin) {
             viewModelScope.launch {
-                loginUseCase(email, password).collect { loginResponse ->
-                    _loginStateLiveData.value = when (loginResponse) {
+                loginUseCase(email, password).collect { response ->
+                    _loginStateLiveData.value = when (response) {
+                        is Success -> LoginViewState.Success
                         is GenericError -> LoginViewState.Failure
                         is InvalidCredentials -> LoginViewState.InvalidCredentials
-                        is Success -> LoginViewState.Success
                         is UnknownUser -> LoginViewState.UnknownUser
                     }
                 }

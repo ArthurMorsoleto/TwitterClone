@@ -14,4 +14,9 @@
 
     <string name="text_signup">No account? Go to Signup</string>
     <string name="text_login">Already have an account? Go to Login</string>
+    <string name="error_occurs">an error occurs</string>
+    <string name="email_required">email is required</string>
+    <string name="password_required">password is required</string>
+    <string name="invalid_email_or_password">email or password is invalid</string>
+    <string name="email_not_found">email not found</string>
 </resources>

@@ -1,6 +1,6 @@
 package com.amb.twitterclone.di
 
-import com.amb.twitterclone.domain.repository.AuthRepository
+import com.amb.twitterclone.data.AuthRepository
 import com.amb.twitterclone.domain.usecases.LoginUseCase
 import com.amb.twitterclone.domain.usecases.LogoutUseCase
 import dagger.Module

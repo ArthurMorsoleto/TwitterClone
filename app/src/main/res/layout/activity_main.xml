@@ -20,6 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/grid_2x"
+                android:importantForAccessibility="no"
                 android:src="@drawable/title" />
 
             <com.google.android.material.textfield.TextInputLayout
@@ -74,6 +75,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/grid_2x"
                 android:clickable="true"
+                android:focusable="true"
                 android:text="@string/text_signup" />
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

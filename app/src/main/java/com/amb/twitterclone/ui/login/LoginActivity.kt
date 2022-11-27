@@ -37,8 +37,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        emailInput.doOnTextChanged { _, _, _, _ -> emailInputLayout.isErrorEnabled = false }
-        passwordInput.doOnTextChanged { _, _, _, _ -> passwordInputLayout.isErrorEnabled = false }
+        emailInput.doOnTextChanged { _, _, _, _ ->
+            passwordInputLayout.isErrorEnabled = false
+            emailInputLayout.isErrorEnabled = false
+        }
+        passwordInput.doOnTextChanged { _, _, _, _ ->
+            passwordInputLayout.isErrorEnabled = false
+            emailInputLayout.isErrorEnabled = false
+        }
         button.setOnClickListener {
             viewModel.onLoginButtonClick(
                 emailInput.text.toString(),
@@ -58,38 +64,34 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 is LoginViewState.Failure -> {
-                    Toast.makeText(this, "an error occurs", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this,
+                        getString(R.string.error_occurs), Toast.LENGTH_SHORT
+                    ).show()
                 }
                 is LoginViewState.Loading -> {
                     loginProgressLayout.visibility = View.VISIBLE
                 }
                 is LoginViewState.EmailError -> {
-                    showEmailError("email is required")
+                    emailInputLayout.showError(errorMessage = getString(R.string.email_required))
                 }
                 is LoginViewState.PasswordError -> {
-                    showPasswordError("password is required")
+                    passwordInputLayout.showError(errorMessage = getString(R.string.password_required))
                 }
                 is LoginViewState.InvalidCredentials -> {
-                    showEmailError("email or password is invalid")
-                    showPasswordError("email or password is invalid")
+                    emailInputLayout.showError(errorMessage = getString(R.string.invalid_email_or_password))
+                    passwordInputLayout.showError(errorMessage = getString(R.string.invalid_email_or_password))
                 }
                 is LoginViewState.UnknownUser -> {
-                    showEmailError("email not found")
+                    emailInputLayout.showError(errorMessage = getString(R.string.email_not_found))
                 }
             }
         }
     }
 
-    private fun showPasswordError(s: String) {
-        passwordInputLayout.run {
-            error = s
-            isErrorEnabled = true
-        }
-    }
-
-    private fun showEmailError(s: String) {
-        emailInputLayout.run {
-            error = s
+    private fun TextInputLayout.showError(errorMessage: String) {
+        this.run {
+            error = errorMessage
             isErrorEnabled = true
         }
     }

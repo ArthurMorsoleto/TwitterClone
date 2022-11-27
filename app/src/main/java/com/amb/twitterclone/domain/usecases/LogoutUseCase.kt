@@ -1,6 +1,6 @@
 package com.amb.twitterclone.domain.usecases
 
-import com.amb.twitterclone.domain.repository.AuthRepository
+import com.amb.twitterclone.data.AuthRepository
 import javax.inject.Inject
 
 class LogoutUseCase @Inject constructor(
