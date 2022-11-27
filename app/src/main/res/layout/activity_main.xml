@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,26 +11,33 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <RelativeLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="@dimen/grid_2x"
+                android:layout_margin="@dimen/grid_4x"
                 android:importantForAccessibility="no"
-                android:src="@drawable/title" />
+                android:src="@drawable/pngegg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailTIL"
-                android:layout_width="@dimen/standard_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imageView"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="@dimen/grid_2x">
+                android:layout_margin="@dimen/grid_3x"
+                android:maxWidth="300dp"
+                app:layout_constraintEnd_toEndOf="@id/imageView"
+                app:layout_constraintStart_toStartOf="@id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/emailET"
@@ -42,11 +50,14 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordTIL"
-                android:layout_width="@dimen/standard_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/emailTIL"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="@dimen/grid_2x">
+                android:layout_margin="@dimen/grid_3x"
+                android:maxWidth="300dp"
+                app:layout_constraintEnd_toEndOf="@id/emailTIL"
+                app:layout_constraintStart_toStartOf="@id/emailTIL"
+                app:layout_constraintTop_toBottomOf="@+id/emailTIL">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/passwordET"
@@ -59,12 +70,16 @@
             <Button
                 android:id="@+id/buttonLogin"
                 style="@style/StandardButton"
-                android:layout_width="@dimen/standard_width"
-                android:layout_height="@dimen/standard_height"
-                android:layout_below="@id/passwordTIL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="@dimen/grid_2x"
-                android:text="@string/button_login" />
+                android:layout_marginHorizontal="@dimen/grid_3x"
+                android:layout_marginTop="@dimen/grid_4x"
+                android:maxWidth="@dimen/standard_width"
+                android:text="@string/button_login"
+                app:layout_constraintEnd_toEndOf="@id/passwordTIL"
+                app:layout_constraintStart_toStartOf="@id/passwordTIL"
+                app:layout_constraintTop_toBottomOf="@+id/passwordTIL" />
 
             <TextView
                 android:id="@+id/signupTV"
@@ -73,11 +88,16 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/buttonLogin"
                 android:layout_centerHorizontal="true"
-                android:layout_margin="@dimen/grid_2x"
+                android:layout_margin="@dimen/grid_3x"
                 android:clickable="true"
                 android:focusable="true"
-                android:text="@string/text_signup" />
-        </RelativeLayout>
+                android:text="@string/text_signup"
+                app:layout_constraintEnd_toEndOf="@+id/buttonLogin"
+                app:layout_constraintStart_toStartOf="@+id/buttonLogin"
+                app:layout_constraintTop_toBottomOf="@+id/buttonLogin" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
