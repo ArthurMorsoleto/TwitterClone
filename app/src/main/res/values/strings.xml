@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">TwitterClone</string>
+
+    <string name="hint_email">email</string>
+    <string name="hint_password">password</string>
+    <string name="hint_username">username</string>
+    <string name="hint_search">search</string>
+    <string name="hint_tweet_text">what\'s up</string>
+
+    <string name="button_login">login</string>
+    <string name="button_signup">signup</string>
+    <string name="button_apply">apply</string>
+    <string name="button_signout">signout</string>
+
+    <string name="text_create_account">create account</string>
+    <string name="text_signup">no account? Go to Signup</string>
+    <string name="text_login">already have an account? Go to Login</string>
+    <string name="error_occurs">an error occurs</string>
+    <string name="email_registered">email already registered</string>
+    <string name="email_required">email is required</string>
+    <string name="password_required">password is required</string>
+    <string name="username_required">username is required</string>
+    <string name="invalid_email_or_password">email or password is invalid</string>
+    <string name="email_not_found">email not found</string>
 </resources>
