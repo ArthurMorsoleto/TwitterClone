@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import com.amb.twitterclone.R
 import com.amb.twitterclone.ui.home.HomeActivity
+import com.amb.twitterclone.ui.signup.SignUpActivity
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +53,7 @@ class LoginActivity : AppCompatActivity() {
             )
         }
         signupTV.setOnClickListener {
-            //TODO continue flow
+            startActivity(SignUpActivity.newInstance(this))
         }
     }
 
@@ -64,10 +65,8 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(Intent(this, HomeActivity::class.java))
                 }
                 is LoginViewState.Failure -> {
-                    Toast.makeText(
-                        this,
-                        getString(R.string.error_occurs), Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(this, getString(R.string.error_occurs), Toast.LENGTH_SHORT)
+                        .show()
                 }
                 is LoginViewState.Loading -> {
                     loginProgressLayout.visibility = View.VISIBLE

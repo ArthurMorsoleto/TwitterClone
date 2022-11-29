@@ -15,4 +15,8 @@ class AuthRepository @Inject constructor(
     fun logoutFirebase() {
         return firebaseAuth.signOut()
     }
+
+    suspend fun createUserFirebase(email: String, password: String): AuthResult {
+        return firebaseAuth.createUserWithEmailAndPassword(email, password).await()
+    }
 }
