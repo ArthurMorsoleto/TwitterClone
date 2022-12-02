@@ -88,7 +88,7 @@ dependencies {
     def firebaseStorage = "16.1.0"
     def firebaseAuth = "16.2.1"
     def glide = "4.8.0"
-    def hilt = "2.44"
+    def hilt = "2.42"
     def mockk = "1.13.2"
     def coroutinesTest = '1.5.2'
     def coreTesting = "2.1.0"
@@ -116,11 +116,13 @@ dependencies {
     implementation "com.android.support:multidex:1.0.3"
 
     implementation "com.github.bumptech.glide:glide:$glide"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glide"
+    kapt "com.github.bumptech.glide:compiler:$glide"
 
     implementation "com.google.dagger:hilt-android:$hilt"
     kapt "com.google.dagger:hilt-android-testing:$hilt"
     kapt "com.google.dagger:hilt-compiler:$hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
 
     testImplementation "junit:junit:4.+"
     testImplementation "io.mockk:mockk:$mockk"
@@ -130,8 +132,9 @@ dependencies {
 
     androidTestImplementation "androidx.test.ext:junit:1.1.3"
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
-    androidTestImplementation 'androidx.test:core-ktx:1.1.0'
+    androidTestImplementation 'androidx.test:core-ktx:1.5.0'
     androidTestImplementation "io.mockk:mockk-android:$mockk"
+    androidTestImplementation "androidx.test:core:1.5.0"
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hilt"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hilt"
 }

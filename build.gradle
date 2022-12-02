@@ -5,17 +5,25 @@ buildscript {
     repositories {
         google()
         jcenter()
+        maven {
+            url  "https://oss.sonatype.org/content/repositories/snapshots"
+            content {
+                includeModule("com.google.dagger", "hilt-android-gradle-plugin")
+            }
+        }
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.1"
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.10'
         classpath "org.jacoco:org.jacoco.core:$jacocoVersion"
+
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.42"
     }
 }
 
 plugins {
-    id 'com.google.dagger.hilt.android' version '2.44' apply false
+    id 'com.google.dagger.hilt.android' version '2.42' apply false
 }
 
 allprojects {
