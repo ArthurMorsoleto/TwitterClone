@@ -88,7 +88,7 @@ dependencies {
     def firebaseStorage = "16.1.0"
     def firebaseAuth = "16.2.1"
     def glide = "4.8.0"
-    def hilt = "2.44"
+    def hilt = "2.42"
     def mockk = "1.13.2"
     def coroutinesTest = '1.5.2'
     def coreTesting = "2.1.0"
@@ -121,6 +121,8 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt"
     kapt "com.google.dagger:hilt-android-testing:$hilt"
     kapt "com.google.dagger:hilt-compiler:$hilt"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt"
+    kapt "androidx.hilt:hilt-compiler:1.0.0"
 
     testImplementation "junit:junit:4.+"
     testImplementation "io.mockk:mockk:$mockk"
