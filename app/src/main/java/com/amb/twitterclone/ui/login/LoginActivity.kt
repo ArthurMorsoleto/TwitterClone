@@ -35,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         initViews()
         setupObserver()
+
+        viewModel.onLoginButtonClick("test@test.com", "123456") //TODO remove this line
     }
 
     private fun initViews() {
