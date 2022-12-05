@@ -14,6 +14,7 @@
 
     <string name="text_create_account">create account</string>
     <string name="text_signup">no account? Go to Signup</string>
+    <string name="text_signout">sign out</string>
     <string name="text_login">already have an account? Go to Login</string>
     <string name="error_occurs">an error occurs</string>
     <string name="email_registered">email already registered</string>
