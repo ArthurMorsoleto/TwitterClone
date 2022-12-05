@@ -22,6 +22,7 @@ class HomeActivity : AppCompatActivity() {
     private val logoutButton: ImageView by lazy { findViewById(R.id.button_logout) }
     private val sectionsViewPager: ViewPager2 by lazy { findViewById(R.id.vp_sections) }
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tab_layout) }
+    private val userImage: ImageView by lazy { findViewById(R.id.image_user) }
 
     private var homeSectionsAdapter: HomeSectionsAdapter? = null
 
@@ -35,6 +36,9 @@ class HomeActivity : AppCompatActivity() {
         logoutButton.setOnClickListener {
             viewModel.onLogoutButtonClick()
             finish()
+        }
+        userImage.setOnClickListener {
+            // TODO call profile screen
         }
         homeSectionsAdapter = HomeSectionsAdapter(
             fragmentActivity = this,
