@@ -31,7 +31,7 @@ class LoginViewModelTest {
     private val password = "pass123"
 
     @Before
-    fun setUp() {
+    fun setup() {
         subject = LoginViewModel(loginUseCase)
     }
 
