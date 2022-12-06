@@ -10,6 +10,7 @@ import com.amb.twitterclone.R
 import com.amb.twitterclone.ui.home.sections.HomeFragment
 import com.amb.twitterclone.ui.home.sections.MyActivityFragment
 import com.amb.twitterclone.ui.home.sections.SearchFragment
+import com.amb.twitterclone.ui.profile.ProfileActivity
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +39,7 @@ class HomeActivity : AppCompatActivity() {
             finish()
         }
         userImage.setOnClickListener {
-            // TODO call profile screen
+            startActivity(ProfileActivity.newInstance(this))
         }
         homeSectionsAdapter = HomeSectionsAdapter(
             fragmentActivity = this,

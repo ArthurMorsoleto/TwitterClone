@@ -36,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
         initViews()
         setupObserver()
 
-        viewModel.onLoginButtonClick("test@test.com", "123456") //TODO remove this line
+        viewModel.onLoginButtonClick("test2@test.com", "123456") //TODO remove this line
     }
 
     private fun initViews() {

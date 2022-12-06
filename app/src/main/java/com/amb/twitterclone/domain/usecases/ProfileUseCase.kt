@@ -6,6 +6,8 @@ import com.amb.twitterclone.domain.model.ProfileResponse.ErrorType
 import com.amb.twitterclone.domain.model.User
 import com.amb.twitterclone.util.DATABASE_USERS
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
@@ -35,6 +37,7 @@ class ProfileUseCase @Inject constructor(
                 e.printStackTrace()
                 trySend(ProfileResponse.Error(ErrorType.GENERIC))
             }
+            awaitClose { cancel() }
         }
     }
 
