@@ -19,4 +19,8 @@ class AuthRepository @Inject constructor(
     suspend fun createUserFirebase(email: String, password: String): AuthResult {
         return firebaseAuth.createUserWithEmailAndPassword(email, password).await()
     }
+
+    fun getCurrentUserId(): String {
+        return firebaseAuth.currentUser?.uid ?: ""
+    }
 }

@@ -1,9 +1,7 @@
 package com.amb.twitterclone.di
 
 import com.amb.twitterclone.data.AuthRepository
-import com.amb.twitterclone.domain.usecases.LoginUseCase
-import com.amb.twitterclone.domain.usecases.LogoutUseCase
-import com.amb.twitterclone.domain.usecases.SingUpUseCase
+import com.amb.twitterclone.domain.usecases.*
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
@@ -21,6 +19,20 @@ object UseCasesModule {
     fun providesLogoutUseCase(authRepository: AuthRepository) = LogoutUseCase(authRepository)
 
     @Provides
-    fun providesSingUpUseCase(authRepository: AuthRepository, firestore: FirebaseFirestore) =
-        SingUpUseCase(authRepository, firestore)
+    fun providesSingUpUseCase(
+        authRepository: AuthRepository,
+        fireStore: FirebaseFirestore
+    ) = SingUpUseCase(authRepository, fireStore)
+
+    @Provides
+    fun providesFetchProfileUseCase(
+        authRepository: AuthRepository,
+        fireStore: FirebaseFirestore
+    ) = ProfileUseCase(authRepository, fireStore)
+
+    @Provides
+    fun provideUpdateProfileUseCase(
+        authRepository: AuthRepository,
+        fireStore: FirebaseFirestore
+    ) = UpdateProfileUseCase(authRepository, fireStore)
 }

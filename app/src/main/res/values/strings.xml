@@ -23,4 +23,7 @@
     <string name="username_required">username is required</string>
     <string name="invalid_email_or_password">email or password is invalid</string>
     <string name="email_not_found">email not found</string>
+    <string name="error_profile_data">error fetching profile data</string>
+    <string name="update_error">update failed. Please try again.</string>
+    <string name="update_success">update successful</string>
 </resources>

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TwitterClone">
         <activity
-            android:name=".ui.ProfileActivity"
+            android:name=".ui.profile.ProfileActivity"
             android:exported="true"
             android:theme="@style/Theme.TwitterClone"
             android:windowSoftInputMode="adjustResize" />
