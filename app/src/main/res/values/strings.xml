@@ -13,8 +13,8 @@
     <string name="button_signout">signout</string>
 
     <string name="text_create_account">create account</string>
-    <string name="text_signup">no account? Go to Signup</string>
     <string name="text_signout">sign out</string>
+    <string name="text_signup">signup</string>
     <string name="text_login">already have an account? Go to Login</string>
     <string name="error_occurs">an error occurs</string>
     <string name="email_registered">email already registered</string>
@@ -26,4 +26,8 @@
     <string name="error_profile_data">error fetching profile data</string>
     <string name="update_error">update failed. Please try again.</string>
     <string name="update_success">update successful</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_image_acc">user image</string>
 </resources>
