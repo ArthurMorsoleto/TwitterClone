@@ -13,7 +13,7 @@
     <string name="button_signout">signout</string>
 
     <string name="text_create_account">create account</string>
-    <string name="text_signup">no account? Go to Signup</string>
+    <string name="text_signup">signup</string>
     <string name="text_login">already have an account? Go to Login</string>
     <string name="error_occurs">an error occurs</string>
     <string name="email_registered">email already registered</string>
@@ -22,4 +22,8 @@
     <string name="username_required">username is required</string>
     <string name="invalid_email_or_password">email or password is invalid</string>
     <string name="email_not_found">email not found</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_image_acc">user image</string>
 </resources>
