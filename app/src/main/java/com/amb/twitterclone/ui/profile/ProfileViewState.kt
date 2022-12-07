@@ -6,5 +6,7 @@ sealed class ProfileViewState {
     object GenericError : ProfileViewState()
     object UpdateError : ProfileViewState()
     object UpdateSuccess : ProfileViewState()
-    data class ProfileData(val userName: String) : ProfileViewState()
+
+    data class ProfileData(val userName: String, val imageUrl: String) : ProfileViewState()
+    data class UpdateImageSuccess(val url: String) : ProfileViewState()
 }

@@ -84,8 +84,8 @@ dependencies {
     def viewmodelKtx = "2.6.0-alpha02"
     def fragmentKtx = "1.5.1"
     def firebaseCore = "16.0.8"
-    def firebaseStore = "18.2.0"
-    def firebaseStorage = "16.1.0"
+    def firebaseFirestore = "18.2.0"
+    def firebaseStorage = "17.0.0"
     def firebaseAuth = "16.2.1"
     def glide = "4.8.0"
     def hilt = "2.42"
@@ -107,10 +107,10 @@ dependencies {
 
     implementation "com.google.firebase:firebase-auth-ktx:$firebaseAuthKtx"
 
-    implementation "com.google.firebase:firebase-core:" + firebaseCore
-    implementation "com.google.firebase:firebase-auth:" + firebaseAuth
-    implementation "com.google.firebase:firebase-firestore:" + firebaseStore
-    implementation "com.google.firebase:firebase-storage:" + firebaseStorage
+    implementation "com.google.firebase:firebase-core:$firebaseCore"
+    implementation "com.google.firebase:firebase-auth:$firebaseAuth"
+    implementation "com.google.firebase:firebase-firestore:$firebaseFirestore"
+    implementation "com.google.firebase:firebase-storage:$firebaseStorage"
 
     implementation "io.grpc:grpc-okhttp:1.32.2"
     implementation "com.android.support:multidex:1.0.3"

@@ -1,5 +1,6 @@
 package com.amb.twitterclone.ui.profile
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.amb.twitterclone.domain.model.ProfileResponse
 import com.amb.twitterclone.domain.model.UpdateResponse
 import com.amb.twitterclone.domain.usecases.ProfileUseCase
+import com.amb.twitterclone.domain.usecases.UpdateProfileImageUseCase
 import com.amb.twitterclone.domain.usecases.UpdateProfileUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileViewModel @Inject constructor(
     private val profileUseCase: ProfileUseCase,
-    private val updateProfileUseCase: UpdateProfileUseCase
+    private val updateProfileUseCase: UpdateProfileUseCase,
+    private val updateProfileImageUseCase: UpdateProfileImageUseCase
 ) : ViewModel() {
 
     private val _profileViewState = MutableLiveData<ProfileViewState>()
@@ -33,7 +36,10 @@ class ProfileViewModel @Inject constructor(
                         }
                     }
                     is ProfileResponse.UserData -> {
-                        _profileViewState.value = ProfileViewState.ProfileData(it.userName)
+                        _profileViewState.value = ProfileViewState.ProfileData(
+                            userName = it.userName,
+                            imageUrl = it.userImageUrl
+                        )
                     }
                 }
             }
@@ -44,9 +50,23 @@ class ProfileViewModel @Inject constructor(
         _profileViewState.value = ProfileViewState.Loading
         viewModelScope.launch {
             updateProfileUseCase(newUserName).collect {
-                _profileViewState.value = when (it) {
-                    UpdateResponse.Error -> ProfileViewState.UpdateError
-                    UpdateResponse.Success -> ProfileViewState.UpdateSuccess
+                _profileViewState.value = if (it is UpdateResponse.Success) {
+                    ProfileViewState.UpdateSuccess
+                } else {
+                    ProfileViewState.UpdateError
+                }
+            }
+        }
+    }
+
+    fun onImageSelected(imageUri: Uri) {
+        _profileViewState.value = ProfileViewState.Loading
+        viewModelScope.launch {
+            updateProfileImageUseCase(imageUri).collect {
+                if (it is UpdateResponse.UpdateImageSuccess) {
+                    _profileViewState.value = ProfileViewState.UpdateImageSuccess(it.url)
+                } else {
+                    _profileViewState.value = ProfileViewState.UpdateError
                 }
             }
         }

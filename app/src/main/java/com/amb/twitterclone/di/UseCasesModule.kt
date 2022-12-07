@@ -3,6 +3,7 @@ package com.amb.twitterclone.di
 import com.amb.twitterclone.data.AuthRepository
 import com.amb.twitterclone.domain.usecases.*
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,19 +14,19 @@ import dagger.hilt.android.components.ViewModelComponent
 object UseCasesModule {
 
     @Provides
-    fun providesLoginUseCase(authRepository: AuthRepository) = LoginUseCase(authRepository)
+    fun provideLoginUseCase(authRepository: AuthRepository) = LoginUseCase(authRepository)
 
     @Provides
-    fun providesLogoutUseCase(authRepository: AuthRepository) = LogoutUseCase(authRepository)
+    fun provideLogoutUseCase(authRepository: AuthRepository) = LogoutUseCase(authRepository)
 
     @Provides
-    fun providesSingUpUseCase(
+    fun provideSingUpUseCase(
         authRepository: AuthRepository,
         fireStore: FirebaseFirestore
     ) = SingUpUseCase(authRepository, fireStore)
 
     @Provides
-    fun providesFetchProfileUseCase(
+    fun provideFetchProfileUseCase(
         authRepository: AuthRepository,
         fireStore: FirebaseFirestore
     ) = ProfileUseCase(authRepository, fireStore)
@@ -35,4 +36,11 @@ object UseCasesModule {
         authRepository: AuthRepository,
         fireStore: FirebaseFirestore
     ) = UpdateProfileUseCase(authRepository, fireStore)
+
+    @Provides
+    fun provideUpdateProfileImageUseCase(
+        authRepository: AuthRepository,
+        firebaseStorage: FirebaseStorage,
+        fireStore: FirebaseFirestore
+    ) = UpdateProfileImageUseCase(authRepository, firebaseStorage, fireStore)
 }

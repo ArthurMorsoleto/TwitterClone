@@ -1,16 +1,17 @@
 package com.amb.twitterclone.ui.profile
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toUri
 import com.amb.twitterclone.R
+import com.amb.twitterclone.util.Extensions.loadUrl
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,6 +23,16 @@ class ProfileActivity : AppCompatActivity() {
     private val loading: LinearLayout by lazy { findViewById(R.id.progress_profile) }
     private val userNameText: TextInputEditText by lazy { findViewById(R.id.et_username_profile) }
     private val applyButton: Button by lazy { findViewById(R.id.button_apply) }
+    private val profileImage: ImageView by lazy { findViewById(R.id.image_profile) }
+
+    var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.dataString?.let {
+                viewModel.onImageSelected(imageUri = it.toUri())
+            }
+        }
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +46,11 @@ class ProfileActivity : AppCompatActivity() {
         applyButton.setOnClickListener {
             viewModel.onApply(newUserName = userNameText.text.toString())
         }
+        profileImage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            resultLauncher.launch(intent)
+        }
     }
 
     private fun setupObservers() {
@@ -46,19 +62,16 @@ class ProfileActivity : AppCompatActivity() {
                 is ProfileViewState.GenericError -> showErrorAndFinish()
                 is ProfileViewState.ProfileData -> {
                     userNameText.setText(state.userName, TextView.BufferType.EDITABLE)
-                    /*
-                     TODO
-                        imageUrl = user?.imageUrl
-                        imageUrl?.let {
-                        photoIV.loadUrl(user?.imageUrl, R.drawable.logo)
-                    */
+                    profileImage.loadUrl(state.imageUrl, R.drawable.ic_person)
                 }
                 is ProfileViewState.UpdateError -> {
-                    showMessage(getString(R.string.error_profile_data))
                     showMessage(getString(R.string.update_error))
                 }
                 is ProfileViewState.UpdateSuccess -> {
                     showMessage(getString(R.string.update_success))
+                }
+                is ProfileViewState.UpdateImageSuccess -> {
+                    profileImage.loadUrl(state.url, R.drawable.ic_person)
                 }
             }
         }

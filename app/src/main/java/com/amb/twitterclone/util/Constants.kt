@@ -1,6 +1,7 @@
 package com.amb.twitterclone.util
 
 const val DATABASE_USERS = "Users"
+const val DATABASE_IMAGES = "ProfileImages"
 
 const val DATA_USER_EMAIL = "email"
 const val DATA_USER_USERNAME = "userName"
