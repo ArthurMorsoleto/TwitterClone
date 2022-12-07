@@ -11,6 +11,7 @@ import com.amb.twitterclone.ui.home.sections.HomeFragment
 import com.amb.twitterclone.ui.home.sections.MyActivityFragment
 import com.amb.twitterclone.ui.home.sections.SearchFragment
 import com.amb.twitterclone.ui.profile.ProfileActivity
+import com.amb.twitterclone.util.Extensions.loadUrl
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,6 +32,14 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         initViews()
+        setupObservers()
+        viewModel.onViewReady()
+    }
+
+    private fun setupObservers() {
+        viewModel.profileImageLiveData.observe(this) {
+            userImage.loadUrl(it, R.drawable.ic_person)
+        }
     }
 
     private fun initViews() {

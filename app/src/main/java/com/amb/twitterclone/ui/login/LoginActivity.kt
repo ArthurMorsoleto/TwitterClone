@@ -1,5 +1,6 @@
 package com.amb.twitterclone.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -95,5 +96,9 @@ class LoginActivity : AppCompatActivity() {
             error = errorMessage
             isErrorEnabled = true
         }
+    }
+
+    companion object {
+        fun newInstance(context: Context) = Intent(context, LoginActivity::class.java)
     }
 }

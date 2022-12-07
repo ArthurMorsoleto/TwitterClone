@@ -8,3 +8,5 @@ const val DATA_USER_USERNAME = "userName"
 const val DATA_USER_IMAGE_URL = "imageUrl"
 const val DATA_USER_FOLLOWED_HASHTAGS = "followedHashTags"
 const val DATA_USER_FOLLOWED_USERS = "followedUsers"
+
+const val INTENT_TYPE_IMAGE = "image/*"
