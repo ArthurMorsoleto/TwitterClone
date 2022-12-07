@@ -11,7 +11,9 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.amb.twitterclone.R
+import com.amb.twitterclone.ui.login.LoginActivity
 import com.amb.twitterclone.util.Extensions.loadUrl
+import com.amb.twitterclone.util.INTENT_TYPE_IMAGE
 import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -23,16 +25,16 @@ class ProfileActivity : AppCompatActivity() {
     private val loading: LinearLayout by lazy { findViewById(R.id.progress_profile) }
     private val userNameText: TextInputEditText by lazy { findViewById(R.id.et_username_profile) }
     private val applyButton: Button by lazy { findViewById(R.id.button_apply) }
+    private val signOutButton: TextView by lazy { findViewById(R.id.text_signout) }
     private val profileImage: ImageView by lazy { findViewById(R.id.image_profile) }
 
-    var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+    private var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.dataString?.let {
-                viewModel.onImageSelected(imageUri = it.toUri())
+                viewModel.onImageSelected(it.toUri())
             }
         }
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,12 +46,19 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun initViews() {
         applyButton.setOnClickListener {
-            viewModel.onApply(newUserName = userNameText.text.toString())
+            viewModel.onApply(userNameText.text.toString())
         }
         profileImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
+            intent.type = INTENT_TYPE_IMAGE
             resultLauncher.launch(intent)
+        }
+        signOutButton.setOnClickListener {
+            viewModel.onSingoutClick()
+            startActivity(
+                LoginActivity.newInstance(this)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+            )
         }
     }
 
