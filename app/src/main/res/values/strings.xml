@@ -27,7 +27,8 @@
     <string name="update_error">update failed. Please try again.</string>
     <string name="update_success">update successful</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="user_image_acc">user image</string>
+    <string name="text_choose_from_device">choose from device</string>
+    <string name="text_take_a_photo">take a photo</string>
 </resources>

@@ -10,7 +10,10 @@ import androidx.activity.result.contract.ActivityResultContracts.StartActivityFo
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
+import com.amb.camera.CameraActivity
 import com.amb.twitterclone.R
+import com.amb.twitterclone.ui.dialog.PhotoPickDialog
+import com.amb.twitterclone.ui.dialog.PhotoPickListener
 import com.amb.twitterclone.ui.login.LoginActivity
 import com.amb.twitterclone.util.Extensions.loadUrl
 import com.amb.twitterclone.util.INTENT_TYPE_IMAGE
@@ -18,7 +21,7 @@ import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : AppCompatActivity(), PhotoPickListener {
 
     private val viewModel: ProfileViewModel by viewModels()
 
@@ -44,14 +47,22 @@ class ProfileActivity : AppCompatActivity() {
         viewModel.onViewReady()
     }
 
+    override fun onTakePhotoClick() {
+        CameraActivity.newInstance(this).run(::startActivity)
+    }
+
+    override fun onChoosePhotoClick() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = INTENT_TYPE_IMAGE
+        resultLauncher.launch(intent)
+    }
+
     private fun initViews() {
         applyButton.setOnClickListener {
             viewModel.onApply(userNameText.text.toString())
         }
         profileImage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = INTENT_TYPE_IMAGE
-            resultLauncher.launch(intent)
+            PhotoPickDialog(this).show()
         }
         signOutButton.setOnClickListener {
             viewModel.onSingoutClick()
