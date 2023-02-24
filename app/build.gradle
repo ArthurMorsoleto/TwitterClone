@@ -93,6 +93,8 @@ dependencies {
     def coroutinesTest = '1.5.2'
     def coreTesting = "2.1.0"
 
+    implementation project(path: ':camera')
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation "androidx.core:core-ktx:$ktx"
     implementation "androidx.appcompat:appcompat:$appCompat"

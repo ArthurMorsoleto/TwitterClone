@@ -33,11 +33,9 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         initViews()
         setupObserver()
-
-        viewModel.onLoginButtonClick("test@test.com", "test123") //TODO remove this line
     }
 
     private fun initViews() {
