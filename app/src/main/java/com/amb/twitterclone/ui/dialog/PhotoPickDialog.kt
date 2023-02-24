@@ -27,9 +27,11 @@ class PhotoPickDialog(context: Context) : Dialog(context) {
         setContentView(R.layout.dialog_photo_pick)
 
         takePhotoButton.setOnClickListener {
+            dismiss()
             pickListener.onTakePhotoClick()
         }
         choosePhotoButton.setOnClickListener {
+            dismiss()
             pickListener.onChoosePhotoClick()
         }
     }

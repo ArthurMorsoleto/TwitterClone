@@ -3,6 +3,7 @@ package com.amb.twitterclone.ui.profile
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.BaseBundle
 import android.os.Bundle
 import android.view.View
 import android.widget.*
@@ -38,6 +39,15 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
             }
         }
     }
+    private var cameraLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            result.data?.extras.let {
+                val uri = (it as BaseBundle).get(CameraActivity.CAMERA_RESULT_SUCCESS)
+                    .toString().toUri()
+                viewModel.onImageSelected(uri)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,7 +58,7 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
     }
 
     override fun onTakePhotoClick() {
-        CameraActivity.newInstance(this).run(::startActivity)
+        cameraLauncher.launch(CameraActivity.newInstance(this))
     }
 
     override fun onChoosePhotoClick() {
