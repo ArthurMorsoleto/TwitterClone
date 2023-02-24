@@ -58,6 +58,6 @@
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/bt_send_tweet"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/camera" />
+        app:srcCompat="@drawable/ic_camera" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
