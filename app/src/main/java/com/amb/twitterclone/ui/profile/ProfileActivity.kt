@@ -5,7 +5,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.result.launch
 import androidx.activity.viewModels
@@ -13,12 +14,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import com.amb.camera.CameraActivityContract
 import com.amb.twitterclone.R
+import com.amb.twitterclone.databinding.ActivityProfileBinding
 import com.amb.twitterclone.ui.dialog.PhotoPickDialog
 import com.amb.twitterclone.ui.dialog.PhotoPickListener
 import com.amb.twitterclone.ui.login.LoginActivity
 import com.amb.twitterclone.util.Extensions.loadUrl
 import com.amb.twitterclone.util.INTENT_TYPE_IMAGE
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,11 +27,7 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
 
     private val viewModel: ProfileViewModel by viewModels()
 
-    private val loading: LinearLayout by lazy { findViewById(R.id.progress_profile) }
-    private val userNameText: TextInputEditText by lazy { findViewById(R.id.et_username_profile) }
-    private val applyButton: Button by lazy { findViewById(R.id.button_apply) }
-    private val signOutButton: TextView by lazy { findViewById(R.id.text_signout) }
-    private val profileImage: ImageView by lazy { findViewById(R.id.image_profile) }
+    private lateinit var viewBinding: ActivityProfileBinding
 
     private var resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -47,7 +44,9 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        viewBinding = ActivityProfileBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
         initViews()
         setupObservers()
         viewModel.onViewReady()
@@ -64,31 +63,35 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
     }
 
     private fun initViews() {
-        applyButton.setOnClickListener {
-            viewModel.onApply(userNameText.text.toString())
-        }
-        profileImage.setOnClickListener {
-            PhotoPickDialog(this).show()
-        }
-        signOutButton.setOnClickListener {
-            viewModel.onSingoutClick()
-            startActivity(
-                LoginActivity.newInstance(this)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            )
+        with(viewBinding) {
+            buttonApply.setOnClickListener {
+                viewModel.onApply(etUsernameProfile.text.toString())
+            }
+            imageProfile.setOnClickListener {
+                PhotoPickDialog(this@ProfileActivity).show()
+            }
+            textSignout.setOnClickListener {
+                viewModel.onSingoutClick()
+                startActivity(
+                    LoginActivity.newInstance(this@ProfileActivity)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                )
+            }
         }
     }
 
     private fun setupObservers() {
         viewModel.profileViewState.observe(this) { state ->
-            loading.visibility = View.GONE
+            viewBinding.progressProfile.visibility = View.GONE
             when (state) {
-                is ProfileViewState.Loading -> loading.visibility = View.VISIBLE
+                is ProfileViewState.Loading -> viewBinding.progressProfile.visibility = View.VISIBLE
                 is ProfileViewState.EmptyData -> showErrorAndFinish()
                 is ProfileViewState.GenericError -> showErrorAndFinish()
                 is ProfileViewState.ProfileData -> {
-                    userNameText.setText(state.userName, TextView.BufferType.EDITABLE)
-                    profileImage.loadUrl(state.imageUrl, R.drawable.ic_person)
+                    viewBinding.etUsernameProfile.setText(
+                        state.userName, TextView.BufferType.EDITABLE
+                    )
+                    viewBinding.imageProfile.loadUrl(state.imageUrl, R.drawable.ic_person)
                 }
                 is ProfileViewState.UpdateError -> {
                     showMessage(getString(R.string.update_error))
@@ -97,7 +100,7 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
                     showMessage(getString(R.string.update_success))
                 }
                 is ProfileViewState.UpdateImageSuccess -> {
-                    profileImage.loadUrl(state.url, R.drawable.ic_person)
+                    viewBinding.imageProfile.loadUrl(state.url, R.drawable.ic_person)
                 }
             }
         }
