@@ -19,6 +19,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.amb.camera.CameraActivityContract.Companion.CAMERA_RESULT_DATA
 import com.amb.camera.databinding.ActivityCameraBinding
 import java.text.SimpleDateFormat
 import java.util.*
@@ -91,10 +92,8 @@ class CameraActivity : AppCompatActivity() {
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     Log.d(TAG, "Photo capture succeeded: ${output.savedUri}")
-                    val resultIntent = Intent().apply {
-                        putExtra(CAMERA_RESULT_SUCCESS, output.savedUri)
-                    }
-                    setResult(Activity.RESULT_OK, resultIntent)
+                    val result = Intent().putExtra(CAMERA_RESULT_DATA, output.savedUri)
+                    setResult(Activity.RESULT_OK, result)
                     finish()
                 }
             }
@@ -137,8 +136,6 @@ class CameraActivity : AppCompatActivity() {
 
     companion object {
         fun newInstance(context: Context) = Intent(context, CameraActivity::class.java)
-
-        const val CAMERA_RESULT_SUCCESS = "cameraResultSuccess"
 
         private const val TAG = "CameraXApp"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"

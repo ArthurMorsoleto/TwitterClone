@@ -3,15 +3,15 @@ package com.amb.twitterclone.ui.profile
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.os.BaseBundle
 import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
-import com.amb.camera.CameraActivity
+import com.amb.camera.CameraActivityContract
 import com.amb.twitterclone.R
 import com.amb.twitterclone.ui.dialog.PhotoPickDialog
 import com.amb.twitterclone.ui.dialog.PhotoPickListener
@@ -39,13 +39,9 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
             }
         }
     }
-    private var cameraLauncher = registerForActivityResult(StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            result.data?.extras.let {
-                val uri = (it as BaseBundle).get(CameraActivity.CAMERA_RESULT_SUCCESS)
-                    .toString().toUri()
-                viewModel.onImageSelected(uri)
-            }
+    private val cameraLauncher = registerForActivityResult(CameraActivityContract()) { result ->
+        if (result != CameraActivityContract.CAMERA_ERROR_RESULT) {
+            viewModel.onImageSelected(result.toUri())
         }
     }
 
@@ -58,7 +54,7 @@ class ProfileActivity : AppCompatActivity(), PhotoPickListener {
     }
 
     override fun onTakePhotoClick() {
-        cameraLauncher.launch(CameraActivity.newInstance(this))
+        cameraLauncher.launch()
     }
 
     override fun onChoosePhotoClick() {
