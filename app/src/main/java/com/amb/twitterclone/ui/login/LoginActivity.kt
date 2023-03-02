@@ -1,5 +1,6 @@
 package com.amb.twitterclone.ui.login
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_login)
         initViews()
         setupObserver()
 
@@ -95,5 +96,9 @@ class LoginActivity : AppCompatActivity() {
             error = errorMessage
             isErrorEnabled = true
         }
+    }
+
+    companion object {
+        fun newInstance(context: Context) = Intent(context, LoginActivity::class.java)
     }
 }

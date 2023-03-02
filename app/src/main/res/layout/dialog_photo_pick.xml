@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/grid_4x"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/button_take_photo"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_take_a_photo" />
+
+    <TextView
+        android:id="@+id/button_choose_photo"
+        android:layout_marginTop="@dimen/grid_3x"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/text_choose_from_device" />
+
+</LinearLayout>

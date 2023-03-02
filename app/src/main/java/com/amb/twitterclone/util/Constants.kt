@@ -4,6 +4,7 @@ package com.amb.twitterclone.util
  * Name of the Collection for the Users DataBase
  */
 const val DATABASE_USERS = "Users"
+const val DATABASE_IMAGES = "ProfileImages"
 
 /**
  * Fields from [DATABASE_USERS]
@@ -13,6 +14,8 @@ const val DATA_USER_USERNAME = "userName"
 const val DATA_USER_IMAGE_URL = "imageUrl"
 const val DATA_USER_FOLLOWED_HASHTAGS = "followedHashTags"
 const val DATA_USER_FOLLOWED_USERS = "followedUsers"
+
+const val INTENT_TYPE_IMAGE = "image/*"
 
 /**
  * Name of the Collection for the Tweets DataBase
