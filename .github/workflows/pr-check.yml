@@ -80,9 +80,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          target: [default]
-          arch: x86_64
-          profile: Nexus 6
           script: ./gradlew connectedCheck --no-daemon --stacktrace --gradle-user-home "$GRADLE_HOME"
 
       - name: Upload Reports
