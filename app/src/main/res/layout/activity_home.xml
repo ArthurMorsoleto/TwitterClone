@@ -8,24 +8,44 @@
 
     <ImageView
         android:id="@+id/button_logout"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_margin="@dimen/grid_2x"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="@dimen/grid_2x"
         android:background="@drawable/ic_baseline_logout"
         android:importantForAccessibility="no"
+        app:layout_constraintBottom_toBottomOf="@+id/image_logo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/image_logo" />
 
-    <ImageView
-        android:id="@+id/image_user"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:background="@drawable/circular"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/grid_2x"
-        android:contentDescription="@string/user_image_acc"
-        android:src="@drawable/ic_person"
+        android:shape="ring"
+        app:cardBackgroundColor="@color/colorPrimary"
+        app:cardCornerRadius="250dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="250dp">
+
+            <ImageView
+                android:id="@+id/image_user"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person"
+                tools:ignore="ContentDescription" />
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/image_logo"
@@ -35,10 +55,10 @@
         android:contentDescription="@string/user_image_acc"
         android:scaleType="centerCrop"
         android:src="@drawable/pngegg"
-        app:layout_constraintBottom_toBottomOf="@+id/image_user"
+        app:layout_constraintBottom_toBottomOf="@+id/card_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/image_user" />
+        app:layout_constraintTop_toTopOf="@+id/card_image" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
@@ -74,6 +94,6 @@
         android:layout_marginTop="@dimen/grid_3x"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toTopOf="@+id/tab_layout"
-        app:layout_constraintTop_toBottomOf="@+id/image_user" />
+        app:layout_constraintTop_toBottomOf="@+id/card_image" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

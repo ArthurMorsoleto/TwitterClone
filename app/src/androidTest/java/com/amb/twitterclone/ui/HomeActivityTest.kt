@@ -49,6 +49,7 @@ class HomeActivityTest {
 
     @Test
     fun test_LogoutButton_Click() {
+        subject = launchActivity()
         onView(withId(R.id.button_logout)).perform(click())
         subject.onActivity { assertTrue(it.isFinishing) }
     }
