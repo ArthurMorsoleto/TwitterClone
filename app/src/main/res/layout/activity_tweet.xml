@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/grid_3x"
         android:backgroundTint="@color/colorPrimary"
-        android:contentDescription="@string/hint_new_tweet"
+        android:contentDescription="@string/send_tweet"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_send" />
@@ -55,6 +55,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/grid_3x"
+        android:contentDescription="@string/add_image"
         android:backgroundTint="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@id/bt_send_tweet"
         app:layout_constraintEnd_toEndOf="parent"

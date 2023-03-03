@@ -19,7 +19,7 @@ class SendTweetUseCase @Inject constructor(
     private val firebaseDB: FirebaseFirestore
 ) {
     suspend operator fun invoke(
-        tweet: Tweet
+        tweetContent: String
     ): Flow<SendTweetResponse> {
         return callbackFlow {
             try {
@@ -29,10 +29,21 @@ class SendTweetUseCase @Inject constructor(
                     .get()
                     .addOnSuccessListener {
                         val user = it.toObject(User::class.java)
-                        if (user == null) {
+                        if (user == null || user.userName.isNullOrEmpty()) {
                             trySend(SendTweetResponse.SendTweetError)
                         } else {
-                            this@callbackFlow.sendTweet(userId, user)
+                            val newTweet = Tweet(
+                                tweetId = null,
+                                userIds = arrayListOf(userId),
+                                userName = user.userName,
+                                text = tweetContent,
+                                imageUrl = "imageUrl",
+                                timestamp = System.currentTimeMillis(),
+                                hashTags = arrayListOf(),
+                                likes = arrayListOf()
+                            )
+
+                            this@callbackFlow.sendTweet(newTweet)
                         }
                     }
                     .addOnFailureListener {
@@ -46,22 +57,13 @@ class SendTweetUseCase @Inject constructor(
         }
     }
 
-    private fun ProducerScope<SendTweetResponse>.sendTweet(userId: String, user: User) {
+    private fun ProducerScope<SendTweetResponse>.sendTweet(tweet: Tweet) {
         with(this@sendTweet) {
             firebaseDB.collection(DATABASE_TWEETS).document().apply {
-                val newTweet = Tweet( //TODO get from useCase param
-                    tweetId = id,
-                    userIds = arrayListOf(userId),
-                    userName = user.userName ?: "userName Error",
-                    text = "tweet content",
-                    imageUrl = "imageUrl",
-                    timestamp = System.currentTimeMillis(),
-                    hashTags = arrayListOf(),
-                    likes = arrayListOf()
-                )
+                val newTweet = tweet.copy(tweetId = id)
                 set(newTweet)
                     .addOnCompleteListener {
-                        trySend(SendTweetResponse.Success)
+                        trySend(SendTweetResponse.SendTweetSuccess)
                     }
                     .addOnFailureListener {
                         trySend(SendTweetResponse.SendTweetError)
