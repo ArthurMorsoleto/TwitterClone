@@ -11,6 +11,9 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel class for Home Screen.
+ */
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val logoutUseCase: LogoutUseCase,
@@ -20,10 +23,16 @@ class HomeViewModel @Inject constructor(
     private val _profileImageLiveData = MutableLiveData<String>()
     val profileImageLiveData: LiveData<String> get() = _profileImageLiveData
 
+    /**
+     * Responsible to call logout use case.
+     */
     fun onLogoutButtonClick() {
         logoutUseCase()
     }
 
+    /**
+     * Responsible to instantiate user profile data.
+     */
     fun onViewReady() {
         viewModelScope.launch {
             profileUseCase().collect {

@@ -18,6 +18,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Main Screen for TwitterClone
+ */
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
