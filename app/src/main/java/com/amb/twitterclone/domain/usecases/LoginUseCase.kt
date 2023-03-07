@@ -1,7 +1,7 @@
 package com.amb.twitterclone.domain.usecases
 
 import com.amb.twitterclone.data.AuthRepository
-import com.amb.twitterclone.domain.model.LoginResponse
+import com.amb.twitterclone.domain.response.LoginResponse
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import kotlinx.coroutines.flow.Flow

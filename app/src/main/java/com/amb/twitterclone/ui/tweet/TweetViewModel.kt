@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amb.twitterclone.domain.model.SendTweetResponse
+import com.amb.twitterclone.domain.response.SendTweetResponse
 import com.amb.twitterclone.domain.usecases.SendTweetUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

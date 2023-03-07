@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.activity.result.launch
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -29,16 +29,12 @@ class TweetActivity : AppCompatActivity(), PhotoPickListener {
 
     private lateinit var viewBinding: ActivityTweetBinding
 
-    private val cameraLauncher = registerForActivityResult(
-        CameraActivityContract()
-    ) { result ->
+    private val cameraLauncher = registerForActivityResult(CameraActivityContract()) { result ->
         if (result != CameraActivityContract.CAMERA_ERROR_RESULT) {
             viewModel.onImageAdded(result.toUri())
         }
     }
-    private var pickImageLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
+    private var pickImageLauncher = registerForActivityResult(StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             result.data?.dataString?.let {
                 viewModel.onImageAdded(it.toUri())

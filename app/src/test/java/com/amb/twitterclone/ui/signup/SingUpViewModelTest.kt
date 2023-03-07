@@ -5,7 +5,7 @@ package com.amb.twitterclone.ui.signup
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.amb.twitterclone.TestUtil
 import com.amb.twitterclone.TestUtil.getValueForTest
-import com.amb.twitterclone.domain.model.SingUpResponse
+import com.amb.twitterclone.domain.response.SingUpResponse
 import com.amb.twitterclone.domain.usecases.SingUpUseCase
 import io.mockk.coEvery
 import io.mockk.mockk

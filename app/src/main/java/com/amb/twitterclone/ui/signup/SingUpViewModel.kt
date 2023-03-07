@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amb.twitterclone.domain.model.SingUpResponse
+import com.amb.twitterclone.domain.response.SingUpResponse
 import com.amb.twitterclone.domain.usecases.SingUpUseCase
 import com.amb.twitterclone.ui.signup.SingUpViewState.*
 import dagger.hilt.android.lifecycle.HiltViewModel

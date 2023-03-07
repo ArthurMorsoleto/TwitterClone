@@ -2,7 +2,7 @@ package com.amb.twitterclone.domain.usecases
 
 import android.net.Uri
 import com.amb.twitterclone.data.AuthRepository
-import com.amb.twitterclone.domain.model.UpdateResponse
+import com.amb.twitterclone.domain.response.UpdateResponse
 import com.amb.twitterclone.util.DATABASE_IMAGES
 import com.amb.twitterclone.util.DATABASE_USERS
 import com.amb.twitterclone.util.DATA_USER_IMAGE_URL

@@ -1,7 +1,7 @@
 package com.amb.twitterclone.domain.usecases
 
 import com.amb.twitterclone.data.AuthRepository
-import com.amb.twitterclone.domain.model.SendTweetResponse
+import com.amb.twitterclone.domain.response.SendTweetResponse
 import com.amb.twitterclone.domain.model.Tweet
 import com.amb.twitterclone.domain.model.User
 import com.amb.twitterclone.util.DATABASE_TWEETS
