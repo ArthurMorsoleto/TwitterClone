@@ -6,6 +6,7 @@ import com.amb.twitterclone.domain.model.User
 import com.amb.twitterclone.domain.response.SendTweetResponse
 import com.amb.twitterclone.util.DATABASE_TWEETS
 import com.amb.twitterclone.util.DATABASE_USERS
+import com.amb.twitterclone.util.Extensions.getHashTags
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.ProducerScope
@@ -15,15 +16,16 @@ import kotlinx.coroutines.flow.callbackFlow
 import javax.inject.Inject
 
 class SendTweetUseCase @Inject constructor(
-    private val authRepository: AuthRepository,
+    authRepository: AuthRepository,
     private val firebaseDB: FirebaseFirestore
 ) {
+    private val userId = authRepository.getCurrentUserId()
+
     suspend operator fun invoke(
         params: SendTweetParams
     ): Flow<SendTweetResponse> {
         return callbackFlow {
             try {
-                val userId = authRepository.getCurrentUserId()
                 firebaseDB.collection(DATABASE_USERS)
                     .document(userId)
                     .get()
@@ -32,23 +34,10 @@ class SendTweetUseCase @Inject constructor(
                         if (user == null || user.userName.isNullOrEmpty()) {
                             trySend(SendTweetResponse.SendTweetError)
                         } else {
-                            val newTweet = Tweet(
-                                tweetId = null,
-                                userIds = arrayListOf(userId),
-                                userName = user.userName,
-                                text = params.tweetContent,
-                                imageUrl = params.tweetImage ?: "",
-                                timestamp = System.currentTimeMillis(),
-                                hashTags = arrayListOf(),
-                                likes = arrayListOf()
-                            )
-
-                            this@callbackFlow.sendTweet(newTweet)
+                            this@callbackFlow.sendTweet(user.userName, params)
                         }
                     }
-                    .addOnFailureListener {
-                        trySend(SendTweetResponse.SendTweetError)
-                    }
+                    .addOnFailureListener { trySend(SendTweetResponse.SendTweetError) }
             } catch (e: Exception) {
                 e.printStackTrace()
                 trySend(SendTweetResponse.SendTweetError)
@@ -57,17 +46,25 @@ class SendTweetUseCase @Inject constructor(
         }
     }
 
-    private fun ProducerScope<SendTweetResponse>.sendTweet(tweet: Tweet) {
+    private fun ProducerScope<SendTweetResponse>.sendTweet(
+        userName: String,
+        params: SendTweetParams
+    ) {
         with(this@sendTweet) {
             firebaseDB.collection(DATABASE_TWEETS).document().apply {
-                val newTweet = tweet.copy(tweetId = id)
+                val newTweet = Tweet(
+                    tweetId = id,
+                    userIds = arrayListOf(userId),
+                    userName = userName,
+                    text = params.tweetContent,
+                    imageUrl = params.tweetImage ?: "",
+                    timestamp = System.currentTimeMillis(),
+                    hashTags = params.tweetContent.getHashTags(),
+                    likes = arrayListOf()
+                )
                 set(newTweet)
-                    .addOnCompleteListener {
-                        trySend(SendTweetResponse.SendTweetSuccess)
-                    }
-                    .addOnFailureListener {
-                        trySend(SendTweetResponse.SendTweetError)
-                    }
+                    .addOnCompleteListener { trySend(SendTweetResponse.SendTweetSuccess) }
+                    .addOnFailureListener { trySend(SendTweetResponse.SendTweetError) }
             }
         }
     }
