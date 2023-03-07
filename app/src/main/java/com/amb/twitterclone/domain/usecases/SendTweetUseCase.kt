@@ -1,9 +1,9 @@
 package com.amb.twitterclone.domain.usecases
 
 import com.amb.twitterclone.data.AuthRepository
-import com.amb.twitterclone.domain.response.SendTweetResponse
 import com.amb.twitterclone.domain.model.Tweet
 import com.amb.twitterclone.domain.model.User
+import com.amb.twitterclone.domain.response.SendTweetResponse
 import com.amb.twitterclone.util.DATABASE_TWEETS
 import com.amb.twitterclone.util.DATABASE_USERS
 import com.google.firebase.firestore.FirebaseFirestore
@@ -19,7 +19,7 @@ class SendTweetUseCase @Inject constructor(
     private val firebaseDB: FirebaseFirestore
 ) {
     suspend operator fun invoke(
-        tweetContent: String
+        params: SendTweetParams
     ): Flow<SendTweetResponse> {
         return callbackFlow {
             try {
@@ -36,8 +36,8 @@ class SendTweetUseCase @Inject constructor(
                                 tweetId = null,
                                 userIds = arrayListOf(userId),
                                 userName = user.userName,
-                                text = tweetContent,
-                                imageUrl = "imageUrl",
+                                text = params.tweetContent,
+                                imageUrl = params.tweetImage ?: "",
                                 timestamp = System.currentTimeMillis(),
                                 hashTags = arrayListOf(),
                                 likes = arrayListOf()
@@ -71,4 +71,9 @@ class SendTweetUseCase @Inject constructor(
             }
         }
     }
+
+    data class SendTweetParams(
+        val tweetContent: String,
+        val tweetImage: String? = null
+    )
 }

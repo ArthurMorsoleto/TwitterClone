@@ -25,6 +25,8 @@ class TweetViewModel @Inject constructor(
     private val _tweetViewActions = MutableLiveData<TweetViewActions>()
     val tweetViewActions: LiveData<TweetViewActions> get() = _tweetViewActions
 
+    private var currentImageUri: Uri? = null
+
     /**
      * Verifies current tweet content and call [SendTweetUseCase]
      *
@@ -40,27 +42,40 @@ class TweetViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Trigger Open Camera Action.
+     */
     fun onTakePhotoClick() {
         _tweetViewActions.value = TweetViewActions.OpenCamera
     }
 
+    /**
+     * Trigger Choose Image Action.
+     */
     fun onChoosePhotoClick() {
         _tweetViewActions.value = TweetViewActions.OpenGallery
     }
 
+    /**
+     * Trigger Preview Image ViewState.
+     *
+     * @param uri[Uri] from selected image.
+     */
     fun onImageAdded(uri: Uri) {
+        currentImageUri = uri
         _tweetViewState.value = TweetViewState.PreviewImage(uri)
     }
 
     private suspend fun sendTweet(textContent: String) {
-        sendTweetUseCase(tweetContent = textContent).collect { response ->
-            when (response) {
-                is SendTweetResponse.SendTweetError -> {
-                    _tweetViewState.value = TweetViewState.Error
-                }
-                is SendTweetResponse.SendTweetSuccess -> {
-                    _tweetViewState.value = TweetViewState.Sent
-                }
+        sendTweetUseCase(
+            SendTweetUseCase.SendTweetParams(
+                tweetContent = textContent,
+                tweetImage = currentImageUri.toString()
+            )
+        ).collect { response ->
+            _tweetViewState.value = when (response) {
+                is SendTweetResponse.SendTweetSuccess -> TweetViewState.Sent
+                else -> TweetViewState.Error
             }
         }
     }
