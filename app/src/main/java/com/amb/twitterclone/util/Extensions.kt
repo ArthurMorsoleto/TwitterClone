@@ -33,6 +33,8 @@ object Extensions {
         return hashTags
     }
 
+    fun emptyString() = ""
+
     private fun progressDrawable(context: Context): CircularProgressDrawable {
         return CircularProgressDrawable(context).apply {
             strokeWidth = 5f
