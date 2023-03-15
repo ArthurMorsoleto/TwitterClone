@@ -47,6 +47,7 @@ object UseCasesModule {
     @Provides
     fun provideSendTweetUseCase(
         authRepository: AuthRepository,
+        firebaseStorage: FirebaseStorage,
         fireStore: FirebaseFirestore
-    ) = SendTweetUseCase(authRepository, fireStore)
+    ) = SendTweetUseCase(authRepository, fireStore,firebaseStorage)
 }
