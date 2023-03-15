@@ -1,12 +1,15 @@
 package com.amb.twitterclone.ui.tweet
 
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amb.twitterclone.domain.response.SendTweetResponse
 import com.amb.twitterclone.domain.usecases.SendTweetUseCase
+import com.amb.twitterclone.domain.usecases.StoreImageUseCase
+import com.amb.twitterclone.util.STORE_IMAGE_ERROR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,7 +19,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class TweetViewModel @Inject constructor(
-    private val sendTweetUseCase: SendTweetUseCase
+    private val sendTweetUseCase: SendTweetUseCase,
+    private val storeImageUseCase: StoreImageUseCase
 ) : ViewModel() {
 
     private val _tweetViewState = MutableLiveData<TweetViewState>()
@@ -25,7 +29,7 @@ class TweetViewModel @Inject constructor(
     private val _tweetViewActions = MutableLiveData<TweetViewActions>()
     val tweetViewActions: LiveData<TweetViewActions> get() = _tweetViewActions
 
-    private var currentImageUri: Uri? = null
+    private var currentTweetImage: Uri? = null
 
     /**
      * Verifies current tweet content and call [SendTweetUseCase]
@@ -37,7 +41,16 @@ class TweetViewModel @Inject constructor(
             if (textContent.isEmpty()) {
                 _tweetViewState.value = TweetViewState.EmptyContent
             } else {
-                sendTweet(textContent)
+                val tweetImage = currentTweetImage ?: "".toUri()
+                if (tweetImage.toString().isEmpty()) {
+                    storeImageUseCase(tweetImage).collect { image ->
+                        if (image != STORE_IMAGE_ERROR) {
+                            sendTweet(tweetText = textContent, tweetImage = image)
+                        }
+                    }
+                } else {
+                    sendTweet(tweetText = textContent)
+                }
             }
         }
     }
@@ -62,15 +75,15 @@ class TweetViewModel @Inject constructor(
      * @param uri[Uri] from selected image.
      */
     fun onImageAdded(uri: Uri) {
-        currentImageUri = uri
+        currentTweetImage = uri
         _tweetViewState.value = TweetViewState.PreviewImage(uri)
     }
 
-    private suspend fun sendTweet(textContent: String) {
+    private suspend fun sendTweet(tweetText: String, tweetImage: String = "") {
         sendTweetUseCase(
             SendTweetUseCase.SendTweetParams(
-                tweetContent = textContent,
-                tweetImage = currentImageUri.toString()
+                tweetText = tweetText,
+                tweetImage = tweetImage
             )
         ).collect { response ->
             _tweetViewState.value = when (response) {

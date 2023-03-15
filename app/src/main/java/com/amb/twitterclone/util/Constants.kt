@@ -35,3 +35,5 @@ const val DATABASE_TWEET_IMAGES = "TweetImages"
 const val DATA_TWEET_USERNAME = "userName"
 const val DATA_TWEET_IMAGE_URL = "imageUrl"
 const val DATA_TWEET_TIMESTAMP = "timestamp"
+
+const val STORE_IMAGE_ERROR = "Error when trying to store image"
