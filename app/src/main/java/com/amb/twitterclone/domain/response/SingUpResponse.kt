@@ -1,4 +1,4 @@
-package com.amb.twitterclone.domain.model
+package com.amb.twitterclone.domain.response
 
 sealed class SingUpResponse {
     object Success : SingUpResponse()

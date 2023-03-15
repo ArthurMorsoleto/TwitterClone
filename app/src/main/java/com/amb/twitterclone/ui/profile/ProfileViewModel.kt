@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amb.twitterclone.domain.model.ProfileResponse
-import com.amb.twitterclone.domain.model.UpdateResponse
+import com.amb.twitterclone.domain.response.ProfileResponse
+import com.amb.twitterclone.domain.response.UpdateResponse
 import com.amb.twitterclone.domain.usecases.LogoutUseCase
 import com.amb.twitterclone.domain.usecases.ProfileUseCase
 import com.amb.twitterclone.domain.usecases.UpdateProfileImageUseCase

@@ -12,10 +12,15 @@ import com.amb.twitterclone.ui.home.sections.MyActivityFragment
 import com.amb.twitterclone.ui.home.sections.SearchFragment
 import com.amb.twitterclone.ui.profile.ProfileActivity
 import com.amb.twitterclone.util.Extensions.loadUrl
+import com.amb.twitterclone.ui.tweet.TweetActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * Main Screen for TwitterClone
+ */
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
@@ -25,6 +30,7 @@ class HomeActivity : AppCompatActivity() {
     private val sectionsViewPager: ViewPager2 by lazy { findViewById(R.id.vp_sections) }
     private val tabLayout: TabLayout by lazy { findViewById(R.id.tab_layout) }
     private val userImage: ImageView by lazy { findViewById(R.id.image_user) }
+    private val newTweet: FloatingActionButton by lazy { findViewById(R.id.bt_add_new_tweet) }
 
     private var homeSectionsAdapter: HomeSectionsAdapter? = null
 
@@ -67,5 +73,8 @@ class HomeActivity : AppCompatActivity() {
                 sectionsViewPager.currentItem = tab.position
             }
         })
+        newTweet.setOnClickListener {
+            TweetActivity.newInstance(this@HomeActivity).run(::startActivity)
+        }
     }
 }

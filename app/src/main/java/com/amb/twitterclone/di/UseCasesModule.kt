@@ -43,4 +43,16 @@ object UseCasesModule {
         firebaseStorage: FirebaseStorage,
         fireStore: FirebaseFirestore
     ) = UpdateProfileImageUseCase(authRepository, firebaseStorage, fireStore)
+
+    @Provides
+    fun provideSendTweetUseCase(
+        authRepository: AuthRepository,
+        fireStore: FirebaseFirestore
+    ) = SendTweetUseCase(authRepository, fireStore)
+
+    @Provides
+    fun provideStoreImageUseCase(
+        authRepository: AuthRepository,
+        firebaseStorage: FirebaseStorage
+    ) = StoreImageUseCase(authRepository, firebaseStorage)
 }

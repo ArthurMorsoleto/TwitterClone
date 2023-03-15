@@ -1,8 +1,8 @@
 package com.amb.twitterclone.domain.usecases
 
 import com.amb.twitterclone.data.AuthRepository
-import com.amb.twitterclone.domain.model.ProfileResponse
-import com.amb.twitterclone.domain.model.ProfileResponse.ErrorType
+import com.amb.twitterclone.domain.response.ProfileResponse
+import com.amb.twitterclone.domain.response.ProfileResponse.ErrorType
 import com.amb.twitterclone.domain.model.User
 import com.amb.twitterclone.util.DATABASE_USERS
 import com.google.firebase.firestore.FirebaseFirestore

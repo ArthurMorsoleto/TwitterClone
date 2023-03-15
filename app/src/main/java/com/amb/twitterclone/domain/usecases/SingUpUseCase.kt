@@ -1,7 +1,7 @@
 package com.amb.twitterclone.domain.usecases
 
 import com.amb.twitterclone.data.AuthRepository
-import com.amb.twitterclone.domain.model.SingUpResponse
+import com.amb.twitterclone.domain.response.SingUpResponse
 import com.amb.twitterclone.domain.model.User
 import com.amb.twitterclone.util.DATABASE_USERS
 import com.google.firebase.auth.FirebaseAuthUserCollisionException

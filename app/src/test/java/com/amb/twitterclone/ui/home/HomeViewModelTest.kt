@@ -5,7 +5,7 @@ package com.amb.twitterclone.ui.home
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.amb.twitterclone.TestUtil
 import com.amb.twitterclone.TestUtil.getValueForTest
-import com.amb.twitterclone.domain.model.ProfileResponse
+import com.amb.twitterclone.domain.response.ProfileResponse
 import com.amb.twitterclone.domain.usecases.LogoutUseCase
 import com.amb.twitterclone.domain.usecases.ProfileUseCase
 import io.mockk.*
