@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.amb.twitterclone.domain.response.SendTweetResponse
 import com.amb.twitterclone.domain.usecases.SendTweetUseCase
 import com.amb.twitterclone.domain.usecases.StoreImageUseCase
+import com.amb.twitterclone.util.Extensions.emptyString
 import com.amb.twitterclone.util.STORE_IMAGE_ERROR
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -41,15 +42,15 @@ class TweetViewModel @Inject constructor(
             if (textContent.isEmpty()) {
                 _tweetViewState.value = TweetViewState.EmptyContent
             } else {
-                val tweetImage = currentTweetImage ?: "".toUri()
+                val tweetImage = currentTweetImage ?: emptyString().toUri()
                 if (tweetImage.toString().isEmpty()) {
+                    sendTweet(tweetText = textContent)
+                } else {
                     storeImageUseCase(tweetImage).collect { image ->
                         if (image != STORE_IMAGE_ERROR) {
                             sendTweet(tweetText = textContent, tweetImage = image)
                         }
                     }
-                } else {
-                    sendTweet(tweetText = textContent)
                 }
             }
         }
