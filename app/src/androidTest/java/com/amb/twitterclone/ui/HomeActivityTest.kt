@@ -8,6 +8,7 @@ import androidx.test.espresso.action.ViewActions.swipeLeft
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.amb.twitterclone.R
 import com.amb.twitterclone.ui.home.HomeActivity
 import com.amb.twitterclone.ui.home.HomeViewModel
@@ -24,8 +25,11 @@ import org.junit.Test
 @HiltAndroidTest
 class HomeActivityTest {
 
-    @get:Rule
+    @get:Rule(order = 0)
     var hiltRule = HiltAndroidRule(this)
+
+    @get:Rule(order = 1)
+    var activityScenarioRule = ActivityScenarioRule(HomeActivity::class.java)
 
     @BindValue
     @JvmField
