@@ -55,4 +55,9 @@ object UseCasesModule {
         authRepository: AuthRepository,
         firebaseStorage: FirebaseStorage
     ) = StoreImageUseCase(authRepository, firebaseStorage)
+
+    @Provides
+    fun provideFetchTweetsUseCase(
+        fireStore: FirebaseFirestore,
+    ) = FetchTweetsUseCase(fireStore)
 }
