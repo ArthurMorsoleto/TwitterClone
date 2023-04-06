@@ -31,6 +31,12 @@ class TweetListAdapter(
 
     override fun getItemCount() = tweetList.size
 
+    fun updateList(newTweets: ArrayList<Tweet>) {
+        tweetList.clear()
+        tweetList.addAll(newTweets)
+        notifyItemRangeChanged(0, tweetList.size)
+    }
+
     inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
 
         private val userName: TextView by lazy { v.findViewById(R.id.text_tweet_username) }

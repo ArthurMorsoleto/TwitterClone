@@ -1,5 +1,7 @@
 package com.amb.twitterclone.domain.model
 
+import com.amb.twitterclone.util.Extensions.emptyString
+
 /**
  * Represents a Tweet from TwitterClone
  *
@@ -13,12 +15,12 @@ package com.amb.twitterclone.domain.model
  * @property likes the [List] of users that has liked the tweet.
  */
 data class Tweet(
-    val tweetId: String?,
-    val userIds: ArrayList<String>,
-    val userName: String,
-    val text: String,
+    val tweetId: String? = null,
+    val userIds: ArrayList<String> = arrayListOf(),
+    val userName: String = emptyString(),
+    val text: String = emptyString(),
     val imageUrl: String = "",
-    val timestamp: Long,
+    val timestamp: Long = 0,
     val hashTags: ArrayList<String> = arrayListOf(),
     val likes: ArrayList<String> = arrayListOf()
 )
